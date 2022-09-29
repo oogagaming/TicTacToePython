@@ -37,13 +37,17 @@ def get_input(p,t):
 def check_cell(cell):
     return eval(cell[0])[int(cell[1])-1] == " "
 
-# def check_win(rows):
-#     for i in rows:
-#         print(rows[i])
-        # if rows[i] == ["x","x","x"]:
-        #     print("win")
-        # elif rows[i] == ["o","o","o"]:
-        #     print("win")
+def check_win(rows):
+    i = 0
+    for row in rows:
+        print(row)
+        checkrow = ""
+        for x in row: checkrow += x
+        if checkrow == "xxx" or checkrow == "ooo":
+            print("you win")
+        # print(check)
+        i += 1
+        
 
 pinput = ""
 playing = True
@@ -75,7 +79,8 @@ while playing:
             allgood = True
             cls()
         draw_board(board)
-        # check_win(board)
+        # print(board)
+        check_win(board)
     
     elif turn == "p2":
         pinput = get_input(pinput,turn)
@@ -99,5 +104,6 @@ while playing:
         if allgood: 
             turn = "p1" 
             allgood = True
-        cls()
+            cls()
         draw_board(board)
+        check_win(board)
