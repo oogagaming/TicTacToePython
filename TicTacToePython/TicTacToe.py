@@ -1,4 +1,3 @@
-from time import sleep
 import os
 
 def cls():
@@ -38,16 +37,38 @@ def check_cell(cell):
     return eval(cell[0])[int(cell[1])-1] == " "
 
 def check_win(rows):
+    #Check horizontal rows
     i = 0
     for row in rows:
-        print(row)
+        # print(row)
         checkrow = ""
         for x in row: checkrow += x
         if checkrow == "xxx" or checkrow == "ooo":
-            print("you win")
+            return "win"
         # print(check)
         i += 1
-        
+    #Check vertical columns
+    for j in range(0,3):
+        col = ""
+        for y in range(0,3):
+            col += rows[y][j]
+        if col == "xxx" or col == "ooo":
+            return "win"
+    #Check diagonal
+    diag = ""
+    
+    diag += rows[0][0]
+    diag += rows[1][1]
+    diag += rows[2][2]
+    if diag == "xxx" or diag == "ooo":
+        return "win"
+    
+    diag = ""
+    diag += rows[0][2]
+    diag += rows[1][1]
+    diag += rows[2][0]
+    if diag == "xxx" or diag == "ooo":
+        return "win"
 
 pinput = ""
 playing = True
@@ -56,14 +77,15 @@ allgood = ""
 
 turn = "p1"
 
-while playing:
-    if turn == "p1":
+draw_board(board)
+
+while True:
+    if turn == "p1" and playing:
         
         pinput = get_input(pinput,turn)
             
         if pinput == "exit": playing = False; break
         
-
         if check_cell(pinput): 
             eval(pinput[0])[int(pinput[1])-1] = "x"
             allgood = True
@@ -71,18 +93,18 @@ while playing:
             print("Already filled")
             allgood = False
     
-        
-        
         pinput = ""
         if allgood: 
             turn = "p2" 
             allgood = True
             cls()
         draw_board(board)
-        # print(board)
-        check_win(board)
+        if check_win(board) == "win": 
+            playing = False
+            print("Player 1 Wins!!")
+            break
     
-    elif turn == "p2":
+    elif turn == "p2" and playing:
         pinput = get_input(pinput,turn)
             
         if pinput == "exit": playing = False; break
@@ -106,4 +128,7 @@ while playing:
             allgood = True
             cls()
         draw_board(board)
-        check_win(board)
+        if check_win(board) == "win": 
+            playing = False
+            print("Player 2 Wins!!");
+            break
