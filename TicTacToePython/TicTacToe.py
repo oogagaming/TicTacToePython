@@ -12,6 +12,8 @@ c = [" "," "," "]
 board = [a,b,c]
 
 def draw_board(rowall):
+    print("   1 2 3 ")
+    x = 0
     for i in rowall:
         line = "|"
         for j in i:
@@ -22,6 +24,11 @@ def draw_board(rowall):
             else:
                 line = line + "\u0332 "
             line = line + "|"
+        if x == 0: line = "a " + line
+        if x == 1: line = "b " + line
+        if x == 2: line = "c " + line
+
+        x += 1
         print(line)
 
 def get_input(p,t):
